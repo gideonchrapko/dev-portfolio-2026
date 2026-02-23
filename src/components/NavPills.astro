@@ -1,0 +1,202 @@
+---
+import navConfig from '../data/nav-routes.json';
+
+type SimpleDropdownEntry = { label: string; href: string };
+type TreeDropdownEntry = { prefix: string; label?: string; href?: string; connector?: boolean; suffix?: string };
+type DropdownEntry = SimpleDropdownEntry | TreeDropdownEntry;
+
+/** Nested tree node: label, href, optional symbol (default ○), optional suffix (e.g. "→"), optional children */
+type TreeNode = {
+  label: string;
+  href: string;
+  symbol?: string;
+  suffix?: string;
+  children?: TreeNode[];
+};
+
+/** Dropdown can be a simple list, a flat tree (array of prefix entries), or a nested tree (prefixes auto-generated) */
+type DropdownConfig =
+  | DropdownEntry[]
+  | { tree: TreeNode[] };
+
+const items = navConfig.items as Array<{
+  id: string;
+  pillLabel: string;
+  pillSlugLabel?: string;
+  pillHref: string;
+  pillOuterBg: string;
+  pillLabelBg: string;
+  dropdown?: DropdownConfig;
+}>;
+
+const dropdownBase =
+  'dropdown-tooltip absolute left-1/2 top-full z-50 -translate-x-1/2 rounded-lg border border-gray-200 bg-white px-6 py-3 shadow-lg transition duration-150 ease-out opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto';
+const treeRow = 'flex items-center gap-0 font-mono text-sm leading-none';
+const treeChars = 'min-w-[5.5rem] shrink-0 select-none text-gray-400 leading-none';
+const treeLink =
+  'group/link flex items-center gap-0 whitespace-nowrap py-0.5 pr-3 leading-none text-gray-800 no-underline hover:bg-gray-100 hover:text-gray-900';
+
+function isTreeEntry(entry: DropdownEntry): entry is TreeDropdownEntry {
+  return typeof entry === 'object' && 'prefix' in entry;
+}
+
+/** Build flat tree lines with auto-generated prefixes from nested tree config */
+function buildTreeLines(roots: TreeNode[]): TreeDropdownEntry[] {
+  const lines: TreeDropdownEntry[] = [];
+  const defaultSymbol = '○';
+
+  for (let i = 0; i < roots.length; i++) {
+    const root = roots[i];
+    const isFirstRoot = i === 0;
+    const isLastRoot = i === roots.length - 1;
+    const hasChildren = root.children && root.children.length > 0;
+    const sym = root.symbol ?? defaultSymbol;
+    const label = root.suffix ? `${root.label}          ${root.suffix}` : root.label;
+
+    if (hasChildren) {
+      if (isFirstRoot) {
+        lines.push({ prefix: `┌ ${sym} `, label: root.label, href: root.href });
+      }
+      const children = root.children!;
+      for (let j = 0; j < children.length; j++) {
+        const child = children[j];
+        const isLastChild = j === children.length - 1;
+        const childSym = child.symbol ?? defaultSymbol;
+        const branch = isLastChild ? '└' : '├';
+        lines.push({ prefix: `│  ${branch} ${childSym} `, label: child.label, href: child.href, suffix: child.suffix });
+      }
+      if (!isLastRoot) lines.push({ prefix: '│', connector: true });
+    } else {
+      const prefix = isFirstRoot && roots.length === 1 ? `┌ ${sym} ` : isLastRoot ? `└ ${sym} ` : `├ ${sym} `;
+      lines.push({ prefix, label, href: root.href });
+      if (!isLastRoot) lines.push({ prefix: '│', connector: true });
+    }
+  }
+  return lines;
+}
+
+function getDropdownEntries(dropdown: DropdownConfig): DropdownEntry[] {
+  if (Array.isArray(dropdown)) return dropdown;
+  if (dropdown && 'tree' in dropdown && Array.isArray(dropdown.tree)) {
+    return buildTreeLines(dropdown.tree as TreeNode[]);
+  }
+  return [];
+}
+---
+
+<div class="flex flex-row flex-nowrap items-center justify-center gap-3" role="navigation" aria-label="Section">
+  {
+    items.map((item) => {
+      const entries = item.dropdown ? getDropdownEntries(item.dropdown) : [];
+      const hasDropdown = entries.length > 0;
+      const isTree = hasDropdown && isTreeEntry(entries[0]);
+
+      if (!hasDropdown) {
+        return (
+          <a
+            href={item.pillHref}
+            class="flex items-center gap-1 rounded-md p-[1.3px] no-underline transition-opacity hover:opacity-90"
+            style={`background-color: ${item.pillOuterBg}`}
+          >
+            <span
+              class="rounded-full px-2.5 py-1 text-base font-medium text-white"
+              style={`background-color: ${item.pillLabelBg}`}
+            >
+              {item.pillLabel}
+            </span>
+          </a>
+        );
+      }
+
+      return (
+        <div class="group relative">
+          <a
+            href={item.pillHref}
+            class="flex items-center gap-1 rounded-md p-[1.3px] no-underline transition-opacity hover:opacity-90"
+            style={`background-color: ${item.pillOuterBg}`}
+          >
+            <span
+              class="rounded-full px-2.5 py-1 text-base font-medium text-white"
+              style={`background-color: ${item.pillLabelBg}`}
+            >
+              {item.pillLabel}
+            </span>
+            {item.pillSlugLabel && (
+              <span class="rounded-full bg-black/10 px-2.5 py-1 text-sm text-[#525252]">
+                {item.pillSlugLabel}
+              </span>
+            )}
+          </a>
+          <div
+            class={dropdownBase}
+            style={`min-width: ${isTree ? '18rem' : '10rem'}; margin-top: 0.125rem;`}
+          >
+            {isTree ? (
+              <div class="font-mono text-sm">
+                {entries.map((entry) => {
+                  if (!isTreeEntry(entry)) return null;
+                  if (entry.connector) {
+                    return (
+                      <div class={treeRow}>
+                        <span class={treeChars}>{entry.prefix}</span>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div class={treeRow}>
+                      <span class={treeChars}>{entry.prefix}</span>
+                      {entry.label != null && entry.href != null ? (
+                        <a href={entry.href} class={treeLink}>
+                          {entry.label}
+                          <span class="ml-4 opacity-0 transition-opacity group-hover/link:opacity-100">→</span>
+                        </a>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              entries.map((entry) => {
+                if (isTreeEntry(entry)) return null;
+                return (
+                  <a
+                    href={entry.href}
+                    class="block px-3 py-1 text-sm leading-none text-gray-800 no-underline hover:bg-gray-100"
+                  >
+                    {entry.label}
+                  </a>
+                );
+              })
+            )}
+          </div>
+        </div>
+      );
+    })
+  }
+</div>
+
+<style>
+  .dropdown-tooltip::before,
+  .dropdown-tooltip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    opacity: 0;
+    transition: opacity 0.15s ease-out;
+  }
+  .dropdown-tooltip:hover::before,
+  .dropdown-tooltip:hover::after {
+    opacity: 1;
+  }
+  .dropdown-tooltip::before {
+    top: -7px;
+    border-bottom: 7px solid rgb(229 231 235);
+  }
+  .dropdown-tooltip::after {
+    top: -6px;
+    border-bottom: 6px solid white;
+  }
+</style>

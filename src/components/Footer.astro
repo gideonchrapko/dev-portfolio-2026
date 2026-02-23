@@ -1,0 +1,40 @@
+
+<footer class="footer-bar fixed bottom-0 left-0 right-0 z-40 h-10 w-full bg-[#FAFAFA] font-mono text-xs text-gray-500">
+	<div class="mx-auto flex h-full w-full max-w-7xl items-center justify-between px-4">
+		<span id="footer-transferred">Transferred: —</span>
+		<span id="footer-requests">Requests: —</span>
+	</div>
+</footer>
+
+<script>
+	function formatBytes(bytes: number): string {
+		if (bytes === 0) return '0 B';
+		const k = 1024;
+		const sizes = ['B', 'KB', 'MB'];
+		const i = Math.floor(Math.log(bytes) / Math.log(k));
+		return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+	}
+
+	function updateFooter() {
+		try {
+			const entries = performance.getEntriesByType?.('resource');
+			if (!entries?.length) return;
+
+			let transferred = 0;
+			for (const e of entries) {
+				if (e.transferSize != null && e.transferSize > 0) transferred += e.transferSize;
+			}
+
+			const transferredEl = document.getElementById('footer-transferred');
+			const requestsEl = document.getElementById('footer-requests');
+			if (transferredEl) transferredEl.textContent = `Transferred: ${formatBytes(transferred)}`;
+			if (requestsEl) requestsEl.textContent = `Requests: ${entries.length}`;
+		} catch (_) {}
+	}
+
+	if (document.readyState === 'complete') {
+		updateFooter();
+	} else {
+		window.addEventListener('load', () => setTimeout(updateFooter, 0));
+	}
+</script>

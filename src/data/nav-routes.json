@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": "about",
+      "pillLabel": "/About",
+      "pillHref": "/about",
+      "pillOuterBg": "#cfed77",
+      "pillLabelBg": "#76c3ff",
+      "dropdown": [
+        { "label": "About me", "href": "/about" },
+        { "label": "Resume", "href": "/about#resume" }
+      ]
+    },
+    {
+      "id": "projects",
+      "pillLabel": "/Projects/",
+      "pillSlugLabel": "[slug]",
+      "pillHref": "/projects",
+      "pillOuterBg": "#cfee78",
+      "pillLabelBg": "#ff7200",
+      "dropdown": {
+        "tree": [
+          {
+            "label": "/projects",
+            "href": "/projects",
+            "symbol": "○",
+            "children": [
+              { "label": "/projects/project-1", "href": "/projects/project-1"},
+              { "label": "/projects/project-2", "href": "/projects/project-2" },
+              { "label": "/projects/project-3", "href": "/projects/project-3" }
+            ]
+          },
+          {
+            "label": "/api/projects",
+            "href": "/api/projects",
+            "symbol": "λ"
+          }
+        ]
+      }
+    },
+    {
+      "id": "contact",
+      "pillLabel": "/contact",
+      "pillHref": "/contact",
+      "pillOuterBg": "#cfee78",
+      "pillLabelBg": "#db0000"
+    }
+  ]
+}

@@ -2,14 +2,28 @@
   "items": [
     {
       "id": "about",
-      "pillLabel": "/About",
-      "pillHref": "/about",
+      "pillLabel": "/about",
+      "pillHref": "/",
       "pillOuterBg": "#cfed77",
       "pillLabelBg": "#76c3ff",
-      "dropdown": [
-        { "label": "About me", "href": "/about" },
-        { "label": "Resume", "href": "/about#resume" }
-      ]
+      "dropdown": {
+        "tree": [
+          {
+            "label": "/about",
+            "href": "/",
+            "symbol": "○",
+            "children": [
+              { "label": "/about#intro", "href": "/about#intro"},
+              { "label": "/about#experience", "href": "/about#experience" }
+            ]
+          },
+          {
+            "label": "/api/projects",
+            "href": "/api/projects",
+            "symbol": "λ"
+          }
+        ]
+      }
     },
     {
       "id": "projects",
@@ -24,11 +38,7 @@
             "label": "/projects",
             "href": "/projects",
             "symbol": "○",
-            "children": [
-              { "label": "/projects/project-1", "href": "/projects/project-1"},
-              { "label": "/projects/project-2", "href": "/projects/project-2" },
-              { "label": "/projects/project-3", "href": "/projects/project-3" }
-            ]
+            "children": []
           },
           {
             "label": "/api/projects",

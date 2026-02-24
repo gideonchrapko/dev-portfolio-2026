@@ -1,0 +1,40 @@
+---
+interface Props {
+  label: string;
+  /** Bright badge color key so Tailwind includes the class */
+  color?: 'amber' | 'emerald' | 'rose' | 'sky' | 'violet' | 'orange' | 'lime' | 'cyan' | 'fuchsia' | 'teal' | 'lightGreen';
+  /** Show a green dot inside the badge (e.g. for "Current" badge) */
+  dot?: boolean;
+}
+const colorMap: Record<NonNullable<Props['color']>, string> = {
+  amber: 'bg-amber-400',
+  emerald: 'bg-emerald-400',
+  rose: 'bg-rose-400',
+  sky: 'bg-sky-400',
+  violet: 'bg-violet-400',
+  orange: 'bg-orange-400',
+  lime: 'bg-lime-400',
+  cyan: 'bg-cyan-400',
+  fuchsia: 'bg-fuchsia-400',
+  teal: 'bg-teal-400',
+  lightGreen: 'bg-lime-200',
+};
+const { label, color = 'amber', dot = false } = Astro.props;
+const bgClass = colorMap[color];
+---
+
+<span
+  class={`relative inline-flex items-center border-0 pl-2 pr-1 py-0.5 text-xs font-medium text-gray-900 ${bgClass}`}
+  style="border-radius: 0;"
+>
+  {/* Small square juts out from top-left corner, same color as badge */}
+  <span
+    class={`absolute -left-1 -top-1 h-1 w-1 border-0 ${bgClass}`}
+    style="border-radius: 0;"
+    aria-hidden="true"
+  />
+  {label}
+  {dot && (
+    <span class="ml-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500" aria-hidden="true" />
+  )}
+</span>

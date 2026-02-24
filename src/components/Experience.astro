@@ -1,0 +1,112 @@
+---
+import Badge from './Badge.astro';
+import CategoryBadge from './CategoryBadge.astro';
+import type { CategorySlug } from '../data/categories';
+import { experience } from '../data/experience';
+
+const capabilityColors: Array<Parameters<typeof Badge>[0]['color']> = [
+  'amber', 'emerald', 'rose', 'sky', 'violet', 'orange', 'lime', 'cyan', 'fuchsia', 'teal',
+];
+
+const capabilities: { category: CategorySlug }[] = [
+  { category: 'graphic-design' },
+  { category: 'motion' },
+  { category: 'web-development' },
+];
+---
+
+<section class="mt-16 font-mono" aria-labelledby="experience-heading">
+	<header class="mb-8">
+		<h2 id="experience-heading" class="text-2xl font-semibold text-gray-900">
+			<span class="text-gray-500">/</span>Experience
+		</h2>
+
+		<!-- <p class="mt-1 text-sm text-gray-500">Design · Motion · Dev</p> -->
+		<div class="flex flex-wrap items-center gap-x-0 gap-y-2">
+			{capabilities.map((cap, i) => (
+				<>
+					<CategoryBadge category={cap.category} />
+					{i < capabilities.length - 1 && (
+						<span class="select-none px-1 text-gray-400" aria-hidden="true">·</span>
+					)}
+				</>
+			))}
+		</div>
+	</header>
+
+	<div class="space-y-10">
+		{experience.map((job) => (
+			<article class="grid grid-cols-1 gap-4 py-4 sm:grid-cols-[minmax(0,13rem)_1fr] sm:items-start sm:gap-8">
+				{/* Left column: duration and dates (brackets); border only as tall as this block */}
+				<div
+					class={`border-l-[2px] pl-2 text-xs text-gray-500 sm:pt-0.5 ${
+						job.current ? 'border-l-emerald-500' : 'border-l-gray-300'
+					}`}
+				>
+					<p class="whitespace-nowrap tabular-nums">[ {job.start} – {job.end} ]</p>
+					<p class="mt-0.5 whitespace-nowrap font-medium text-gray-600">{job.duration}</p>
+				</div>
+
+				{/* Right column: company, role, scope, capabilities */}
+				<div>
+					<div class="text-sm">
+						<div class="flex flex-wrap items-center gap-2">
+							{job.url ? (
+								<a
+									href={job.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="group inline-flex items-center gap-1.5 rounded px-0.5 font-semibold text-gray-900 no-underline transition-colors hover:bg-gray-300/40"
+								>
+									<span class="underline decoration-gray-400 hover:decoration-gray-600">{job.company}</span>
+									<span class="inline-block text-base no-underline transition-transform duration-200 -rotate-45 group-hover:rotate-0" aria-hidden="true">→</span>
+								</a>
+							) : (
+								<span class="font-semibold text-gray-900">{job.company}</span>
+							)}
+							{job.current && <Badge label="Current" color="lightGreen" dot />}
+						</div>
+						<p class="mt-0.5 text-gray-700">{job.role}</p>
+					</div>
+					<p class="mt-0.5 text-xs text-gray-500">
+						{job.type}
+						{job.location ? ` · ${job.location}` : ''}
+					</p>
+
+					{job.scope.length > 0 && (
+						<div class="mt-4">
+							<p class="text-xs font-medium uppercase tracking-wider text-gray-500">— Scope</p>
+							<ul class="mt-1.5 list-none space-y-0.5 pl-0 text-sm text-gray-700">
+								{job.scope.map((item) => (
+									<li>
+										<span class="text-gray-400">→</span>
+										<span class="ml-2">{item}</span>
+									</li>
+								))}
+							</ul>
+						</div>
+					)}
+
+					{job.capabilities.length > 0 && (
+						<div class="mt-4">
+							<p class="text-xs font-medium uppercase tracking-wider text-gray-500">— Capabilities</p>
+							<div class="mt-2 flex flex-wrap gap-2">
+								{job.capabilities.map((cap, i) => (
+									<a
+										href={`/projects?tag=${encodeURIComponent(cap.slug)}`}
+										class="inline-flex no-underline transition-opacity duration-200 opacity-75 hover:opacity-100"
+									>
+										<Badge
+											label={cap.label}
+											color={capabilityColors[i % capabilityColors.length]}
+										/>
+									</a>
+								))}
+							</div>
+						</div>
+					)}
+				</div>
+			</article>
+		))}
+	</div>
+</section>

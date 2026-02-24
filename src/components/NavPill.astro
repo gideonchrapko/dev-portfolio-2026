@@ -1,0 +1,57 @@
+---
+import NavPillDropdown from './NavPillDropdown.astro';
+
+interface Props {
+  item: {
+    pillLabel: string;
+    pillSlugLabel?: string;
+    pillHref: string;
+    pillOuterBg: string;
+    pillLabelBg: string;
+  };
+  entries: Array<
+    | { label: string; href: string }
+    | { prefix: string; label?: string; href?: string; connector?: boolean; suffix?: string }
+  >;
+  isTree: boolean;
+}
+
+const { item, entries, isTree } = Astro.props;
+const hasDropdown = entries.length > 0;
+---
+
+{!hasDropdown ? (
+  <a
+    href={item.pillHref}
+    class="group flex items-center gap-1 rounded-md p-[1.3px] no-underline transition-colors hover:!bg-black"
+    style={`background-color: ${item.pillOuterBg}`}
+  >
+    <span
+      class="rounded-full px-2.5 py-1 text-base font-medium text-white transition-colors group-hover:!bg-black group-hover:!text-white"
+      style={`background-color: ${item.pillLabelBg}`}
+    >
+      {item.pillLabel}
+    </span>
+  </a>
+) : (
+  <div class="group relative">
+    <a
+      href={item.pillHref}
+      class="group/pill flex items-center gap-1 rounded-md p-[1.3px] no-underline transition-colors hover:!bg-black"
+      style={`background-color: ${item.pillOuterBg}`}
+    >
+      <span
+        class="rounded-full px-2.5 py-1 text-base font-medium text-white transition-colors group-hover/pill:!bg-black group-hover/pill:!text-white"
+        style={`background-color: ${item.pillLabelBg}`}
+      >
+        {item.pillLabel}
+      </span>
+      {item.pillSlugLabel && (
+        <span class="rounded-full bg-black/10 px-2.5 py-1 text-sm text-[#525252] transition-colors group-hover/pill:!bg-black group-hover/pill:!text-white">
+          {item.pillSlugLabel}
+        </span>
+      )}
+    </a>
+    <NavPillDropdown entries={entries} isTree={isTree} />
+  </div>
+)}

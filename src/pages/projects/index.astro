@@ -1,15 +1,18 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CategoryBadge from '../../components/CategoryBadge.astro';
+import ProjectBadge from '../../components/ProjectBadge.astro';
 import { getCollection } from 'astro:content';
 import type { CategorySlug } from '../../data/categories';
+import { experience } from '../../data/experience';
+import { categoryBySlug } from '../../data/categories';
 
 const allProjects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0)
 );
 
-const tag = Astro.url.searchParams.get('tag')?.toLowerCase();
-const categoryFilter = Astro.url.searchParams.get('category')?.toLowerCase();
+const selectedTags = Astro.url.searchParams.getAll('tag').map((t) => t.toLowerCase());
+const selectedCategories = Astro.url.searchParams.getAll('category').map((c) => c.toLowerCase());
 
 const categoryOrder = ['web-development', 'motion', 'graphic-design'] as const;
 const categoryLabels: Record<(typeof categoryOrder)[number], string> = {
@@ -18,25 +21,74 @@ const categoryLabels: Record<(typeof categoryOrder)[number], string> = {
   'graphic-design': 'design',
 };
 
-const projectsFiltered = tag
-  ? allProjects.filter((p) => (p.data.tags ?? []).map((t) => t.toLowerCase()).includes(tag))
-  : categoryFilter && categoryOrder.includes(categoryFilter as (typeof categoryOrder)[number])
-    ? allProjects.filter((p) => (p.data.category ?? 'graphic-design') === categoryFilter)
-    : allProjects;
+const projectsFiltered = allProjects.filter((p) => {
+  const projectTags = (p.data.tags ?? []).map((t) => t.toLowerCase());
+  const projectCategory = (p.data.category ?? 'graphic-design').toLowerCase();
+  const matchesTags =
+    selectedTags.length === 0 || selectedTags.every((tag) => projectTags.includes(tag));
+  const matchesCategories =
+    selectedCategories.length === 0 || selectedCategories.includes(projectCategory);
+  return matchesTags && matchesCategories;
+});
 
 const groupedByCategory = categoryOrder.map((cat) => ({
   category: cat,
   label: categoryLabels[cat],
   projects: projectsFiltered.filter((p) => (p.data.category ?? 'graphic-design') === cat),
 })).filter((g) => g.projects.length > 0);
+
+// Every tag: from project frontmatter + experience capabilities (slug = tag for ?tag=)
+const tagLabels: Record<string, string> = {};
+for (const e of experience) {
+  for (const cap of e.capabilities) {
+    const slug = cap.slug.toLowerCase();
+    if (!tagLabels[slug]) tagLabels[slug] = cap.label;
+  }
+}
+const projectTagSlugs = new Set(allProjects.flatMap((p) => (p.data.tags ?? []).map((t) => t.toLowerCase())));
+for (const slug of projectTagSlugs) {
+  if (!tagLabels[slug]) tagLabels[slug] = slug;
+}
+const allTags = Object.keys(tagLabels).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+
+const filterSummary =
+  selectedTags.length > 0 || selectedCategories.length > 0
+    ? [
+        selectedCategories.length ? selectedCategories.map((c) => categoryLabels[c as keyof typeof categoryLabels] ?? c).join(', ') : null,
+        selectedTags.length ? selectedTags.map((t) => tagLabels[t] ?? t).join(', ') : null,
+      ]
+        .filter(Boolean)
+        .join(' · ')
+    : null;
 ---
 
 <Layout title="Projects">
 	<div class="mx-auto max-w-3xl px-4 py-8 font-mono">
 		<h1 class="text-2xl font-semibold text-gray-900">Projects</h1>
 		<p class="mt-1 text-gray-600">
-			{tag ? `Tag: ${tag}` : categoryFilter ? categoryLabels[categoryFilter as keyof typeof categoryLabels] ?? 'Projects' : "Things I've built."}
+			{filterSummary ?? "Things I've built."}
 		</p>
+		<div class="mt-6 flex flex-wrap items-center gap-2">
+			<span class="mr-2 text-sm font-medium text-gray-500">Categories</span>
+			{categoryOrder.map((cat) => (
+				<ProjectBadge
+					param="category"
+					value={cat}
+					label={categoryLabels[cat]}
+					color={categoryBySlug[cat as CategorySlug].badgeColor}
+				/>
+			))}
+		</div>
+		<div class="mt-3 flex flex-wrap items-center gap-2">
+			<span class="mr-2 text-sm font-medium text-gray-500">Tags</span>
+			{allTags.length > 0 ? (
+				allTags.map((slug) => (
+					<ProjectBadge param="tag" value={slug} label={tagLabels[slug]} variant="secondary" />
+				))
+			) : (
+				<span class="text-sm text-gray-400">—</span>
+			)}
+		</div>
 		<div class="mt-8 space-y-10">
 			{groupedByCategory.map((group) => (
 				<section>
@@ -63,4 +115,68 @@ const groupedByCategory = categoryOrder.map((cat) => ({
 			))}
 		</div>
 	</div>
+	<script is:inline>
+		(function () {
+			var colorMap = {
+				amber: 'bg-amber-400',
+				emerald: 'bg-emerald-400',
+				rose: 'bg-rose-400',
+				sky: 'bg-sky-400',
+				violet: 'bg-violet-400',
+				orange: 'bg-orange-400',
+				lime: 'bg-lime-400',
+				cyan: 'bg-cyan-400',
+				fuchsia: 'bg-fuchsia-400',
+				teal: 'bg-teal-400',
+			};
+			function getToggleUrl(param, value) {
+				var url = new URL(window.location.href);
+				var values = url.searchParams.getAll(param).map(function (v) { return v.toLowerCase(); });
+				var valueLower = value.toLowerCase();
+				var next = values.indexOf(valueLower) >= 0
+					? values.filter(function (v) { return v !== valueLower; })
+					: values.concat(valueLower);
+				url.searchParams.delete(param);
+				next.forEach(function (v) { url.searchParams.append(param, v); });
+				return url.pathname + url.search;
+			}
+			function syncSelectedState() {
+				var url = new URL(window.location.href);
+				document.querySelectorAll('[data-project-badge]').forEach(function (btn) {
+					var param = btn.dataset.param;
+					var value = btn.dataset.value;
+					var color = btn.dataset.color || 'amber';
+					var variant = btn.dataset.variant || 'secondary';
+					var current = url.searchParams.getAll(param).map(function (v) { return v.toLowerCase(); });
+					var selected = current.indexOf(value.toLowerCase()) >= 0;
+					btn.setAttribute('aria-pressed', selected);
+					var bgClass = colorMap[color] || 'bg-amber-400';
+					var allBgClasses = Object.keys(colorMap).map(function (k) { return colorMap[k]; });
+					if (selected) {
+						btn.classList.add('ring-2', 'ring-gray-700', 'ring-offset-1', 'text-gray-900', bgClass);
+						btn.classList.remove('opacity-75', 'bg-gray-600', 'text-white');
+						allBgClasses.forEach(function (c) { if (c !== bgClass) btn.classList.remove(c); });
+					} else {
+						btn.classList.remove('ring-2', 'ring-gray-700', 'ring-offset-1', 'text-gray-900');
+						allBgClasses.forEach(function (c) { btn.classList.remove(c); });
+						if (variant === 'secondary') btn.classList.add('bg-gray-600', 'text-white', 'opacity-75');
+					}
+				});
+			}
+			function init() {
+				document.querySelectorAll('[data-project-badge]').forEach(function (btn) {
+					btn.addEventListener('click', function () {
+						window.location.href = getToggleUrl(btn.dataset.param, btn.dataset.value);
+					});
+				});
+				syncSelectedState();
+			}
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', init);
+			} else {
+				init();
+			}
+			window.addEventListener('popstate', syncSelectedState);
+		})();
+	</script>
 </Layout>

@@ -1,3 +1,5 @@
+import type { TagSlugType } from "./tags";
+
 export type ExperienceEntry = {
   company: string;
   /** Company website URL – if set, company name becomes a link */
@@ -13,7 +15,8 @@ export type ExperienceEntry = {
   /** e.g. "10 mos", "2 yrs" */
   duration: string;
   scope: string[];
-  capabilities: { label: string; slug: string }[]; // slug for /projects?tag=...
+  /** Tag slugs from src/data/tags.ts – labels are resolved from there. */
+  capabilities: TagSlugType[];
 };
 
 export const experience: ExperienceEntry[] = [
@@ -33,12 +36,12 @@ export const experience: ExperienceEntry[] = [
       "Cross-team collaboration",
     ],
     capabilities: [
-      { label: "Graphic Design", slug: "graphic-design" },
-      { label: "Typography", slug: "typography" },
-      { label: "Visual Identity", slug: "visual-identity" },
-      { label: "Editorial", slug: "editorial" },
-      { label: "Illustration", slug: "illustration" },
-      { label: "3D", slug: "3d" },
+      "graphic-design",
+      "typography",
+      "visual-identity",
+      "editorial",
+      "illustration",
+      "3d",
     ],
   },
   {
@@ -57,14 +60,7 @@ export const experience: ExperienceEntry[] = [
       "Contributed to GitHub workflows and delivery decisions",
       "Iterated on UX/UI improvements across client projects",
     ],
-    capabilities: [
-      { label: "React", slug: "react" },
-      { label: "Vue", slug: "vue" },
-      { label: "Remix", slug: "remix" },
-      { label: "Next.js", slug: "nextjs" },
-      { label: "Figma", slug: "figma" },
-      { label: "Astro", slug: "astro" },
-    ],
+    capabilities: ["react", "vue", "remix", "nextjs", "figma", "astro"],
   },
   {
     company: "Coinbase",
@@ -81,11 +77,6 @@ export const experience: ExperienceEntry[] = [
       "Developed motion aligned with UX and technical constraints",
       "Delivered optimized, product-ready Lottie files for implementation",
     ],
-    capabilities: [
-      { label: "Animation", slug: "animation" },
-      { label: "Lottie", slug: "lottie" },
-      { label: "Product Motion", slug: "product-motion" },
-      { label: "UX Motion", slug: "ux-motion" },
-    ],
+    capabilities: ["animation", "lottie", "product-motion", "ux-motion"],
   },
 ];

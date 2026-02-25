@@ -3,6 +3,7 @@ import Badge from './Badge.astro';
 import CategoryBadge from './CategoryBadge.astro';
 import type { CategorySlug } from '../data/categories';
 import { experience } from '../data/experience';
+import { tagLabelsBySlug } from '../data/tags';
 
 const capabilities: { category: CategorySlug }[] = [
   { category: 'graphic-design' },
@@ -89,12 +90,12 @@ const capabilities: { category: CategorySlug }[] = [
 						<div class="mt-4">
 							<p class="text-xs font-medium uppercase tracking-wider text-gray-500">— Capabilities</p>
 							<div class="mt-2 flex flex-wrap gap-2">
-								{job.capabilities.map((cap) => (
+								{job.capabilities.map((slug) => (
 									<a
-										href={`/projects?tag=${encodeURIComponent(cap.slug)}`}
+										href={`/projects?tag=${encodeURIComponent(slug)}`}
 										class="inline-flex no-underline transition-opacity duration-200 opacity-75 hover:opacity-100"
 									>
-										<Badge label={cap.label} variant="secondary" link />
+										<Badge label={tagLabelsBySlug[slug] ?? slug} variant="secondary" link />
 									</a>
 								))}
 							</div>

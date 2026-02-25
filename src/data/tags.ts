@@ -29,6 +29,8 @@ const tagsList = [
   { slug: "vue", label: "Vue" },
   { slug: "visual-identity", label: "Visual Identity" },
   { slug: "sanity.io", label: "Sanity.io" },
+  { slug: "shopify-hydrogen", label: "Shopify Hydrogen" },
+  { slug: "e-commerce", label: "E-commerce" },
 ] as const;
 
 export type TagSlugType = (typeof tagsList)[number]["slug"];

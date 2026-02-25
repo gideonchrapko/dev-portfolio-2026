@@ -152,7 +152,7 @@ function getDropdownEntries(dropdown: DropdownConfig): DropdownEntry[] {
       class="nav-shared-dropdown-y w-full"
       style="transform: translateY(var(--nav-dropdown-top, 0px));"
     >
-    <div class="nav-shared-dropdown-content w-full rounded border border-gray-300 bg-white shadow-lg">
+    <div class="nav-shared-dropdown-content w-full rounded border border-gray-700 bg-[#0d0d0d] shadow-xl">
     {items.map((item, i) => {
       const entries = item.dropdown ? getDropdownEntries(item.dropdown) : [];
       const isTree = entries.length > 0 && isTreeEntry(entries[0]);

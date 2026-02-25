@@ -3,8 +3,9 @@ title: Stand With Crypto State Advocacy Editorial
 description: Editorial refresh of state advocacy materials for government officials and donors
 date: 2024-06-01
 category: graphic-design
-draft: true
+draft: false
 tags: [editorial, illustration, graphic-design]
+url: 'https://www.coinbase.com/en-ca/one'
 roles:
   - Editorial Designer
   - Illustration Designer

@@ -5,6 +5,7 @@ date: 2024-03-01
 category: motion
 draft: false
 tags: [animation, lottie, product-motion, ux-motion]
+url: 'https://www.coinbase.com/en-ca/one'
 roles:
   - Motion Designer
 tools:

@@ -4,10 +4,6 @@ import CategoryBadge from './CategoryBadge.astro';
 import type { CategorySlug } from '../data/categories';
 import { experience } from '../data/experience';
 
-const capabilityColors: Array<Parameters<typeof Badge>[0]['color']> = [
-  'amber', 'emerald', 'rose', 'sky', 'violet', 'orange', 'lime', 'cyan', 'fuchsia', 'teal',
-];
-
 const capabilities: { category: CategorySlug }[] = [
   { category: 'graphic-design' },
   { category: 'motion' },
@@ -21,7 +17,6 @@ const capabilities: { category: CategorySlug }[] = [
 			<span class="text-gray-500">/</span>Experience
 		</h2>
 
-		<!-- <p class="mt-1 text-sm text-gray-500">Design · Motion · Dev</p> -->
 		<div class="flex flex-wrap items-center gap-x-0 gap-y-2">
 			{capabilities.map((cap, i) => (
 				<>
@@ -37,7 +32,6 @@ const capabilities: { category: CategorySlug }[] = [
 	<div class="space-y-10">
 		{experience.map((job) => (
 			<article class="grid grid-cols-1 gap-4 py-4 sm:grid-cols-[minmax(0,13rem)_1fr] sm:items-start sm:gap-8">
-				{/* Left column: duration and dates (brackets); border only as tall as this block */}
 				<div
 					class={`border-l-[2px] pl-2 text-xs text-gray-500 sm:pt-0.5 ${
 						job.current ? 'border-l-emerald-500' : 'border-l-gray-300'
@@ -47,7 +41,6 @@ const capabilities: { category: CategorySlug }[] = [
 					<p class="mt-0.5 whitespace-nowrap font-medium text-gray-600">{job.duration}</p>
 				</div>
 
-				{/* Right column: company, role, scope, capabilities */}
 				<div>
 					<div class="text-sm">
 						<div class="flex flex-wrap items-center gap-2">
@@ -64,7 +57,12 @@ const capabilities: { category: CategorySlug }[] = [
 							) : (
 								<span class="font-semibold text-gray-900">{job.company}</span>
 							)}
-							{job.current && <Badge label="Current" color="lightGreen" dot />}
+							{job.current && (
+								<span class="inline-flex items-center gap-1.5 text-sm font-medium text-green-600">
+									<span class="h-1.5 w-1.5 shrink-0 rounded-full bg-green-500" aria-hidden="true" />
+									Current
+								</span>
+							)}
 						</div>
 						<p class="mt-0.5 text-gray-700">{job.role}</p>
 					</div>
@@ -91,15 +89,12 @@ const capabilities: { category: CategorySlug }[] = [
 						<div class="mt-4">
 							<p class="text-xs font-medium uppercase tracking-wider text-gray-500">— Capabilities</p>
 							<div class="mt-2 flex flex-wrap gap-2">
-								{job.capabilities.map((cap, i) => (
+								{job.capabilities.map((cap) => (
 									<a
 										href={`/projects?tag=${encodeURIComponent(cap.slug)}`}
 										class="inline-flex no-underline transition-opacity duration-200 opacity-75 hover:opacity-100"
 									>
-										<Badge
-											label={cap.label}
-											color={capabilityColors[i % capabilityColors.length]}
-										/>
+										<Badge label={cap.label} variant="secondary" link />
 									</a>
 								))}
 							</div>

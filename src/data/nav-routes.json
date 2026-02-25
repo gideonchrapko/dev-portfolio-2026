@@ -4,8 +4,8 @@
       "id": "about",
       "pillLabel": "/about",
       "pillHref": "/",
-      "pillOuterBg": "#cfed77",
-      "pillLabelBg": "#76c3ff",
+      "pillOuterBg": "#A6DE00",
+      "pillLabelBg": "black",
       "dropdown": {
         "tree": [
           {
@@ -13,8 +13,14 @@
             "href": "/",
             "symbol": "○",
             "children": [
-              { "label": "/about#intro", "href": "/about#intro"},
-              { "label": "/about#experience", "href": "/about#experience" }
+              {
+                "label": "/about#intro",
+                "href": "/about#intro"
+              },
+              {
+                "label": "/about#experience",
+                "href": "/about#experience"
+              }
             ]
           },
           {
@@ -23,14 +29,15 @@
             "symbol": "λ"
           }
         ]
-      }
+      },
+      "pillSlugLabel": "[slug]"
     },
     {
       "id": "projects",
       "pillLabel": "/Projects/",
       "pillSlugLabel": "[slug]",
       "pillHref": "/projects",
-      "pillOuterBg": "#cfee78",
+      "pillOuterBg": "#EBB830",
       "pillLabelBg": "#ff7200",
       "dropdown": {
         "tree": [
@@ -50,10 +57,10 @@
     },
     {
       "id": "contact",
-      "pillLabel": "/contact",
+      "pillLabel": "contact",
       "pillHref": "/contact",
-      "pillOuterBg": "#cfee78",
-      "pillLabelBg": "#db0000"
+      "pillOuterBg": "#A6DE00",
+      "pillLabelBg": ""
     }
   ]
 }

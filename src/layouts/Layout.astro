@@ -29,5 +29,39 @@ const pageTitle = title ? `${title} | Gideon Chrapko` : 'Gideon Chrapko | Front 
 			</div>
 		</div>
 		<Footer />
+		<script is:inline>
+			document.addEventListener('click', function (e) {
+				var trigger = e.target && e.target.closest && e.target.closest('[data-popover-trigger]');
+				if (trigger) {
+					var root = trigger.closest('[data-popover]');
+					var panel = root && root.querySelector('[data-popover-panel]');
+					if (panel) {
+						e.preventDefault();
+						e.stopPropagation();
+						var isOpen = panel.getAttribute('data-open') === 'true';
+						panel.setAttribute('data-open', isOpen ? 'false' : 'true');
+						panel.style.setProperty('display', isOpen ? 'none' : 'block', 'important');
+						panel.style.setProperty('visibility', isOpen ? 'hidden' : 'visible', 'important');
+						panel.style.setProperty('opacity', isOpen ? '0' : '1', 'important');
+						panel.style.pointerEvents = isOpen ? 'none' : 'auto';
+					}
+					return;
+				}
+				document.querySelectorAll('[data-popover-panel][data-open="true"]').forEach(function (el) {
+					el.setAttribute('data-open', 'false');
+					el.style.setProperty('display', 'none', 'important');
+					el.style.pointerEvents = 'none';
+				});
+			});
+			document.addEventListener('keydown', function (e) {
+				if (e.key === 'Escape') {
+					document.querySelectorAll('[data-popover-panel][data-open="true"]').forEach(function (el) {
+						el.setAttribute('data-open', 'false');
+						el.style.setProperty('display', 'none', 'important');
+						el.style.pointerEvents = 'none';
+					});
+				}
+			});
+		</script>
 	</body>
 </html>

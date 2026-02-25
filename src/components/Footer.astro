@@ -4,9 +4,27 @@ const year = new Date().getFullYear();
 ---
 <footer class="footer-bar fixed bottom-0 left-0 right-0 z-40 h-10 w-full bg-[#FAFAFA] font-mono text-xs text-gray-500">
 	<div class="mx-auto flex h-full w-full max-w-7xl items-center justify-between px-4">
-		<span id="footer-finished">Finished: —</span>
-		<span id="footer-transferred">Transferred: —</span>
-		<span id="footer-requests">Requests: —</span>
+		<div class="group/network relative">
+			<button
+				type="button"
+				class="rounded px-2 py-1 text-left text-gray-500 no-underline transition-colors hover:bg-gray-200/80 hover:text-gray-700"
+				aria-haspopup="true"
+				aria-expanded="false"
+				aria-label="Show network stats"
+			>
+				Network
+			</button>
+			<div
+				class="absolute bottom-full left-0 mb-1 min-w-[12rem] rounded border border-gray-300 bg-white px-3 py-2 shadow-lg opacity-0 pointer-events-none transition-opacity duration-150 group-hover/network:opacity-100 group-hover/network:pointer-events-auto"
+				role="tooltip"
+			>
+				<div class="space-y-1 text-gray-700">
+					<p id="footer-finished">Finished: —</p>
+					<p id="footer-transferred">Transferred: —</p>
+					<p id="footer-requests">Requests: —</p>
+				</div>
+			</div>
+		</div>
 		<span>©{year}</span>
 	</div>
 </footer>

@@ -1,29 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Experience from '../components/Experience.astro';
+import CodePopover from '../components/CodePopover.astro';
 import { getEntry, render } from 'astro:content';
 
-// 1. Load the "home" page from the "pages" collection.
-//    The collection is defined in content.config.ts and reads from src/content/pages/.
-//    The id "home" comes from the filename: home.md → id "home".
 const entry = await getEntry('pages', 'home');
 if (!entry) throw new Error('Missing content: pages/home.md');
-
-// 2. Turn the markdown body into HTML. <Content /> below will output that HTML.
 const { Content } = await render(entry);
 ---
 
 <Layout>
 	<div class="px-4 py-8 font-mono">
-		<!-- 3. entry.data = the frontmatter (title, description) from home.md -->
 		<h1 class="text-7xl font-bold text-gray-900">/{entry.data.title}</h1>
-		<p class="mt-1 flex flex-wrap items-center gap-2 text-5xl font-bold">
-			<span class="inline-flex px-2 py-1 flex-shrink-0 items-center justify-center rounded-3xl bg-black text-2xl text-white">✦</span>
-			<span>Design.</span>
-			<span class="inline-flex flex-shrink-0 px-2 py-1 items-center justify-center rounded-3xl bg-black text-xl text-white">{'<' + '/' + '>'}</span>
-			<span>Code.</span>
-		</p>
-		<!-- 4. Content = the rendered markdown body from home.md (the intro paragraph lives there) -->
+		<div class="mt-1 flex flex-wrap items-center gap-2 text-5xl font-bold">
+			<!-- <span class="inline-flex flex-shrink-0 items-center justify-center rounded-lg bg-black px-2 py-1 text-xl text-white">✦</span> -->
+			<span class="text-3xl font-bold">✦ Design </span>
+			<!-- <span class="inline-flex flex-shrink-0 items-center justify-center rounded-lg bg-black px-2 py-1 text-xl text-white">{'<' + '/' + '>'}</span> -->
+			<CodePopover />
+		</div>
 		<div class="mt-6 space-y-4 text-xl [&_a]:text-blue-600 [&_a]:underline [&_h2]:mt-6 [&_h2]:text-xl [&_ul]:list-disc [&_ul]:pl-6">
 			<Content />
 		</div>

@@ -5,9 +5,11 @@ interface Props {
     | { prefix: string; label?: string; href?: string; connector?: boolean; suffix?: string; level?: 'root' | 'category' | 'project' }
   >;
   isTree: boolean;
+  /** When true, no absolute positioning (for use inside shared floating dropdown) */
+  embed?: boolean;
 }
 
-const { entries, isTree } = Astro.props;
+const { entries, isTree, embed = false } = Astro.props;
 
 function isTreeEntry(
   entry: Props['entries'][number]
@@ -15,8 +17,9 @@ function isTreeEntry(
   return typeof entry === 'object' && 'prefix' in entry;
 }
 
-const dropdownBase =
-  'dropdown-tooltip absolute left-1/2 top-full z-50 -translate-x-1/2 rounded border border-gray-300 bg-white px-5 py-4 shadow-lg transition duration-150 ease-out opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto';
+const dropdownBase = embed
+  ? 'dropdown-tooltip dropdown-tooltip-embed relative z-0 rounded border-0 bg-transparent p-0 shadow-none'
+  : 'dropdown-tooltip absolute left-1/2 top-full z-50 -translate-x-1/2 rounded border border-gray-300 bg-white px-5 py-4 shadow-lg transition duration-150 ease-out opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto';
 const treeRow = 'flex items-center gap-[1ch] font-mono text-base leading-none';
 const treeChars = 'shrink-0 select-none font-light text-gray-300 leading-none';
 const treeLineLink =
@@ -25,7 +28,7 @@ const treeLineLink =
 
 <div
   class={dropdownBase}
-  style={`min-width: ${isTree ? '22rem' : '14rem'}; margin-top: -4px;`}
+  style={embed ? '' : `min-width: ${isTree ? '22rem' : '14rem'}; margin-top: -4px;`}
 >
   {isTree ? (
     <div class="font-mono text-base leading-none">
@@ -73,6 +76,10 @@ const treeLineLink =
 </div>
 
 <style>
+  .dropdown-tooltip-embed::before,
+  .dropdown-tooltip-embed::after {
+    display: none;
+  }
   .dropdown-tooltip::before,
   .dropdown-tooltip::after {
     content: '';

@@ -1,10 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  safelist: ['bg-header', 'bg-footer'],
   theme: {
     extend: {
       colors: {
-        'light-green': '#EFFFC1',
+        'light-green': '#F8FFE2',
+        header: '#C1FF00',
         footer: '#FAFAFA',
       },
       fontFamily: {

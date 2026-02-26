@@ -5,7 +5,32 @@
       "pillLabel": "/about",
       "pillHref": "/",
       "pillOuterBg": "#A6DE00",
-      "pillLabelBg": "black"
+      "pillLabelBg": "black",
+      "dropdown": {
+        "tree": [
+          {
+            "label": "/about",
+            "href": "/",
+            "symbol": "○",
+            "children": [
+              {
+                "label": "/about#intro",
+                "href": "/about#intro"
+              },
+              {
+                "label": "/about#experience",
+                "href": "/about#experience"
+              }
+            ]
+          },
+          {
+            "label": "/api/projects",
+            "href": "/api/projects",
+            "symbol": "λ"
+          }
+        ]
+      },
+      "pillSlugLabel": "[slug]"
     },
     {
       "id": "projects",

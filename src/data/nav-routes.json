@@ -15,11 +15,11 @@
             "children": [
               {
                 "label": "/about#intro",
-                "href": "/about#intro"
+                "href": "/#intro"
               },
               {
                 "label": "/about#experience",
-                "href": "/about#experience"
+                "href": "/#experience"
               }
             ]
           },

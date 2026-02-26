@@ -11,13 +11,15 @@ const { Content } = await render(entry);
 
 <Layout>
 	<div class="px-4 py-8 font-mono">
-		<h1 class="text-7xl font-bold text-gray-900">/{entry.data.title}</h1>
-		<div class="mt-1 flex flex-wrap items-center gap-2 text-5xl font-bold">
-			<span class="text-3xl font-bold">✦ Design </span>
-			<CodePopover />
-		</div>
-		<div class="mt-6 space-y-4 text-xl [&_a]:text-blue-600 [&_a]:underline [&_h2]:mt-6 [&_h2]:text-xl [&_ul]:list-disc [&_ul]:pl-6">
-			<Content />
+		<div id="intro" class="scroll-mt-24">
+			<h1 class="text-7xl font-bold text-gray-900">/{entry.data.title}</h1>
+			<div class="mt-1 flex flex-wrap items-center gap-2 text-5xl font-bold">
+				<span class="text-3xl font-bold">✦ Design </span>
+				<CodePopover />
+			</div>
+			<div class="mt-6 space-y-4 text-xl [&_a]:text-blue-600 [&_a]:underline [&_h2]:mt-6 [&_h2]:text-xl [&_ul]:list-disc [&_ul]:pl-6">
+				<Content />
+			</div>
 		</div>
 		<p class="mt-6">
 			<a href="/projects" class="font-bold text-gray-600 underline decoration-gray-400 hover:text-gray-900 hover:decoration-gray-600">[View work]</a>

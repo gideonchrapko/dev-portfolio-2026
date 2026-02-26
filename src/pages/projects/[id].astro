@@ -14,9 +14,11 @@ const { Content } = await render(entry);
 const { title, description, date, category, roles, tools, overview, sections, images, videos, url, showVideoControls } = entry.data;
 const videoControls = showVideoControls ?? false;
 const categorySlug = (category ?? 'graphic-design') as CategorySlug;
+const shareDescription = description ?? overview?.slice(0, 160) ?? title;
+const shareImage = images?.[0] ?? undefined;
 ---
 
-<Layout title={title}>
+<Layout title={title} description={shareDescription} image={shareImage}>
 	<article class="px-4 py-8 font-mono">
 		<header>
 			<h1 class="text-2xl font-semibold text-gray-900">{title}</h1>

@@ -7,9 +7,10 @@ import { getEntry, render } from 'astro:content';
 const entry = await getEntry('pages', 'home');
 if (!entry) throw new Error('Missing content: pages/home.md');
 const { Content } = await render(entry);
+const description = entry.data.description ?? 'Front-end developer with a background in design.';
 ---
 
-<Layout>
+<Layout description={description} image="/og.png">
 	<div class="px-4 py-8 font-mono">
 		<div id="intro" class="scroll-mt-24">
 			<h1 class="text-7xl font-bold text-gray-900">/{entry.data.title}</h1>

@@ -66,8 +66,10 @@ const categorySlug = (category ?? 'graphic-design') as CategorySlug;
 			</div>
 		)}
 
+		{(videos?.length || sections?.length || images?.length) ? (
+			<div class="mt-10 space-y-10">
 		{videos?.length ? (
-			<div class="mt-10 w-full space-y-4">
+			<div class="w-full space-y-4">
 				{videos.map((video) => {
 					const showControls = typeof video === 'object' && video.controls !== undefined ? video.controls : videoControls;
 					const attrs = showControls ? { controls: true } : { autoplay: true, muted: true, loop: true };
@@ -86,7 +88,7 @@ const categorySlug = (category ?? 'graphic-design') as CategorySlug;
 
 		<!-- Sections (2.1, 2.2, …) with media -->
 		{sections?.length ? (
-			<div class="mt-10 space-y-16">
+			<div class="space-y-16">
 				{sections.map((section) => (
 					<section>
 						<h2 class="text-lg font-semibold text-gray-900">
@@ -129,7 +131,7 @@ const categorySlug = (category ?? 'graphic-design') as CategorySlug;
 				))}
 			</div>
 		) : images?.length ? (
-			<div class="mt-10">
+			<div>
 				<div class="project-hero-gallery space-y-20">
 						{images.slice(0, 2).map((src) => (
 							<div class="project-hero-gallery__full">
@@ -161,6 +163,8 @@ const categorySlug = (category ?? 'graphic-design') as CategorySlug;
 							</div>
 						)}
 				</div>
+			</div>
+		) : null}
 			</div>
 		) : null}
 
@@ -198,6 +202,12 @@ const categorySlug = (category ?? 'graphic-design') as CategorySlug;
 		max-width: 100%;
 	}
 	@media (max-width: 640px) {
+		.project-hero-gallery__third {
+			max-width: 100%;
+		}
+		.project-hero-gallery__third img {
+			max-width: 100%;
+		}
 		.project-hero-gallery__fourth {
 			margin-top: 2rem;
 		}

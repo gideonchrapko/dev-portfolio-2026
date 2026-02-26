@@ -34,7 +34,7 @@
     },
     {
       "id": "projects",
-      "pillLabel": "/Projects/",
+      "pillLabel": "/projects/",
       "pillSlugLabel": "[slug]",
       "pillHref": "/projects",
       "pillOuterBg": "#EBB830",

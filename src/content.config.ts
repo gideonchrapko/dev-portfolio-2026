@@ -15,7 +15,14 @@ const pages = defineCollection({
 
 const videoSource = z.union([
   z.string(), // single URL (e.g. MP4 or WebM)
-  z.object({ webm: z.string().optional(), mp4: z.string().optional() }).refine((o) => !!(o.webm || o.mp4), { message: 'Provide at least webm or mp4' }),
+  z
+    .object({
+      webm: z.string().optional(),
+      mp4: z.string().optional(),
+      /** When true/false, show or hide native video controls for this video. When omitted, uses project showVideoControls. */
+      controls: z.boolean().optional(),
+    })
+    .refine((o) => !!(o.webm || o.mp4), { message: 'Provide at least webm or mp4' }),
 ]);
 const projectSection = z.object({
   id: z.string().optional(), // e.g. "2.1" for numbered sections
@@ -53,6 +60,8 @@ const projects = defineCollection({
     // Simple projects: one set of media (no numbered sections)
     images: z.array(z.string()).optional(),
     videos: z.array(videoSource).optional(),
+    /** When true, show the browser’s native video controls (play, pause, progress, volume). Default false. */
+    showVideoControls: z.boolean().optional().default(false),
   }),
 });
 

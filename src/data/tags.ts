@@ -24,12 +24,17 @@ const tagsList = [
   { slug: "product-motion", label: "Product Motion" },
   { slug: "react", label: "React" },
   { slug: "remix", label: "Remix" },
+  { slug: "illustrator", label: "Illustrator" },
+  { slug: "after-effects", label: "After Effects" },
   { slug: "typography", label: "Typography" },
+  { slug: "typescript", label: "TypeScript" },
   { slug: "ux-motion", label: "UX Motion" },
   { slug: "vue", label: "Vue" },
   { slug: "visual-identity", label: "Visual Identity" },
   { slug: "sanity.io", label: "Sanity.io" },
+  { slug: "shadcn", label: "shadcn/ui" },
   { slug: "shopify-hydrogen", label: "Shopify Hydrogen" },
+  { slug: "supabase", label: "Supabase" },
   { slug: "e-commerce", label: "E-commerce" },
 ] as const;
 

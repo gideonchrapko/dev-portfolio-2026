@@ -69,7 +69,19 @@ Add a new project by creating `projects/my-project.md` with the same frontmatter
        mp4: https://cdn.example.com/demo.mp4
    ```
    The template renders `<video>` with two `<source>` elements; the browser chooses one. List WebM first in the object so it’s preferred where supported.
-5. **Site behavior** – The project page uses `preload="metadata"` so the full file isn’t downloaded until the user presses play.
+5. **Show video controls** – You can show the browser’s native playback UI (play, pause, progress, volume) in two ways:
+   - **Project default:** In frontmatter set `showVideoControls: true` to show controls on all videos in that project (default is `false`).
+   - **Per video:** For object-style entries (with `webm`/`mp4`), add `controls: true` or `controls: false` to override the project default for that video only:
+   ```yaml
+   videos:
+     - webm: https://cdn.example.com/a.webm
+       mp4: https://cdn.example.com/a.mp4
+       controls: false
+     - webm: https://cdn.example.com/b.webm
+       mp4: https://cdn.example.com/b.mp4
+       controls: true
+   ```
+6. **Site behavior** – The project page uses `preload="metadata"` so the full file isn’t downloaded until the user presses play.
 
 **Summary:** Host videos on a CDN, compress them (e.g. with FFmpeg), and put the CDN URLs in `videos` or `sections[].videos`. Avoid storing large video files in `public/`.
 

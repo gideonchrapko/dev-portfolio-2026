@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import CategoryBadge from '../../components/CategoryBadge.astro';
+import Badge from '../../components/Badge.astro';
 import ProjectBadge from '../../components/ProjectBadge.astro';
 import { getCollection } from 'astro:content';
 import type { CategorySlug } from '../../data/categories';
@@ -28,6 +28,11 @@ const groupedByCategory = categoryOrder.map((cat) => ({
 // Tags: single source of truth in src/data/tags.ts (use slug in project frontmatter)
 const allTags = tagConfig.map((t) => t.slug);
 const tagLabels = tagLabelsBySlug;
+
+function formatProjectDate(d: Date | undefined): string {
+  if (!d) return '';
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+}
 
 ---
 
@@ -61,7 +66,7 @@ const tagLabels = tagLabelsBySlug;
 		<div class="mt-8 space-y-10" id="projects-list">
 			{groupedByCategory.map((group) => (
 				<section class="projects-category-section" data-category={group.category}>
-					<h2 class="text-lg font-semibold text-gray-900">{group.label}</h2>
+					<h2 class="text-lg font-semibold text-gray-900">/{group.label}</h2>
 					<ul class="mt-4 list-none space-y-4">
 						{group.projects.map((project) => (
 							<li
@@ -71,15 +76,40 @@ const tagLabels = tagLabelsBySlug;
 							>
 								<a
 									href={`/projects/${project.id}`}
-									class="block rounded-lg border border-gray-200 bg-white/80 p-4 no-underline shadow-sm transition hover:border-gray-300 hover:shadow"
+									class="project-card group flex gap-4 rounded-lg py-2 no-underline transition"
 								>
-									<div class="flex flex-wrap items-center gap-2">
-										<h3 class="text-lg font-medium text-gray-900">{project.data.title}</h3>
-										<CategoryBadge category={(project.data.category ?? 'graphic-design') as CategorySlug} static />
+									<div class="h-[50px] w-[50px] shrink-0 overflow-hidden rounded bg-gray-100">
+										{project.data.images?.[0] ? (
+											<img
+												src={project.data.images[0]}
+												alt=""
+												class="h-full w-full object-cover"
+												width={50}
+												height={50}
+												fetchpriority="low"
+											/>
+										) : (
+											<div class="h-full w-full bg-gray-200" aria-hidden="true" />
+										)}
 									</div>
-									{project.data.description && (
-										<p class="mt-1 text-sm text-gray-600">{project.data.description}</p>
-									)}
+									<div class="min-w-0 flex-1">
+										<div class="flex items-center gap-2">
+											<div class="flex min-w-0 max-w-[50%] items-center gap-1.5 overflow-hidden rounded px-0.5 transition-colors group-hover:bg-gray-300/40" data-title-wrap>
+												<span class="title-inner block truncate text-lg font-medium text-gray-900 underline decoration-gray-400 transition-colors group-hover:decoration-gray-600" data-title-inner>{project.data.title}</span>
+												<span class="inline-block shrink-0 text-base no-underline transition-transform duration-200 -rotate-45 group-hover:rotate-0" aria-hidden="true">→</span>
+											</div>
+											{project.data.date && (
+												<span class="ml-auto shrink-0 whitespace-nowrap text-xs tabular-nums text-gray-500" aria-hidden="true">[ {formatProjectDate(project.data.date)} ]</span>
+											)}
+										</div>
+										{(project.data.tags ?? []).length > 0 && (
+											<div class="mt-1.5 flex flex-wrap gap-1.5" aria-hidden="true">
+												{(project.data.tags ?? []).map((slug: string) => (
+													<Badge label={tagLabels[slug as keyof typeof tagLabels] ?? slug} variant="secondary" />
+												))}
+											</div>
+										)}
+									</div>
 								</a>
 							</li>
 						))}
@@ -88,6 +118,49 @@ const tagLabels = tagLabelsBySlug;
 			))}
 		</div>
 	</div>
+	<style>
+		.project-card.marquee-active [data-title-wrap] {
+			overflow: hidden;
+		}
+		.project-card.marquee-active .title-inner {
+			display: inline-block;
+			white-space: nowrap;
+			animation: project-title-marquee 6s linear both;
+		}
+		@keyframes project-title-marquee {
+			from { transform: translateX(0); }
+			to { transform: translateX(calc(-1 * var(--marquee-offset, 0px))); }
+		}
+	</style>
+	<script is:inline>
+		(function () {
+			function initMarquee() {
+				document.querySelectorAll('.project-card').forEach(function (card) {
+					var wrap = card.querySelector('[data-title-wrap]');
+					var inner = card.querySelector('[data-title-inner]');
+					if (!wrap || !inner) return;
+					function onEnter() {
+						if (inner.scrollWidth > wrap.clientWidth) {
+							var offset = inner.scrollWidth - wrap.clientWidth;
+							card.style.setProperty('--marquee-offset', offset + 'px');
+							card.classList.add('marquee-active');
+						}
+					}
+					function onLeave() {
+						card.classList.remove('marquee-active');
+						card.style.removeProperty('--marquee-offset');
+					}
+					card.addEventListener('mouseenter', onEnter);
+					card.addEventListener('mouseleave', onLeave);
+				});
+			}
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', initMarquee);
+			} else {
+				initMarquee();
+			}
+		})();
+	</script>
 	<script type="application/json" id="projects-page-labels" set:html={JSON.stringify({ categoryLabels, tagLabels })}></script>
 	<script is:inline>
 		(function () {

@@ -14,7 +14,7 @@ tools:
   - figma
   - react
   - sanity.io
-overview: |
+overview:
   The Day Night Agency Management website is a dynamic platform showcasing projects from its marketing and influencer divisions. Built with Next.js and powered by a headless CMS using Sanity, the site empowers employees with a customizable dashboard to effortlessly upload and manage content. Featuring immersive 3D assets created with Three.js, it delivers a visually engaging experience that highlights the agency’s creative edge. This innovative website combines flexibility, functionality, and cutting-edge design to represent Day Night Agency’s projects and capabilities with style and precision.
 images:
   - /projects/day-night-agency/02.webp
@@ -24,6 +24,7 @@ images:
 videos:
   - webm: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/output.webm
     mp4: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/output.mp4
+showVideoControls: false
 ---
 
 <!-- Optional: extra body content below the fold -->

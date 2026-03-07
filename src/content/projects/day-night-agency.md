@@ -22,8 +22,8 @@ images:
   - /projects/day-night-agency/03.webp
   - /projects/day-night-agency/05.webp
 videos:
-  - webm: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/output.webm
-    mp4: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/output.mp4
+  - webm: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/output.webm
+    mp4: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/output.mp4
 showVideoControls: false
 ---
 

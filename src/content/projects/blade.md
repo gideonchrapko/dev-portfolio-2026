@@ -20,8 +20,8 @@ images:
   - /projects/blade/03.webp
   - /projects/blade/04.webp
 videos:
-  - webm: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/blade.webm
-    mp4: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/blade.mp4
+  - webm: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/blade.webm
+    mp4: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/blade.mp4
 showVideoControls: false
 ---
 

@@ -19,10 +19,10 @@ images:
   - /projects/coinbase-one/02.webp
   - /projects/coinbase-one/03.webp
 videos:
-  - webm: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/coin.webm
-    mp4: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/coin.mp4
-  - webm: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/coin-01.webm
-    mp4: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/coin-01.webm
+  - webm: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/coin.webm
+    mp4: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/coin.mp4
+  - webm: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/coin-01.webm
+    mp4: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/coin-01.mp4
 showVideoControls: false
 ---
 

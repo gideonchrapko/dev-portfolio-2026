@@ -15,10 +15,10 @@ overview:
 images:
   - /projects/napster-holiday/01.webp
 videos:
-  - webm: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/napster-01.webm
-    mp4: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/napster-01.mp4
-  - webm: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/napster.webm
-    mp4: https://grhoehliuvwv3u7h.public.blob.vercel-storage.com/portfolio/napster.mp4
+  - webm: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/napster-01.webm
+    mp4: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/napster-01.mp4
+  - webm: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/napster.webm
+    mp4: https://pub-7b79a400a11f430189736f4884287c22.r2.dev/portfolio/napster.mp4
 showVideoControls: true
 ---
 

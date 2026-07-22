@@ -4,22 +4,22 @@ Each project lives in `src/content/projects/*.md` with this frontmatter and opti
 
 ## Frontmatter
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `title` | Yes | Project name (e.g. "Stand With Crypto State Advocacy Editorial") |
-| `description` | No | Short line for cards and SEO |
-| `date` | No | When you shipped or finished (YYYY-MM-DD) |
-| `draft` | No | `true` = hidden from listings (default `false`) |
-| `category` | No | One of `graphic-design`, `motion`, `web-development` (default `graphic-design`). Used for nav dropdown and projects index grouping. |
-| `tags` | No | Array for filtering (e.g. `[editorial, illustration]`) — match slugs in Experience capabilities if you want tag links |
-| **Intro (1.1)** | | |
-| `roles` | No | Array, e.g. `["Editorial Designer", "Illustration Designer"]` |
-| `tools` | No | Array, e.g. `["Adobe InDesign", "Adobe Illustrator"]` |
-| `overview` | No | PROJECT OVERVIEW paragraph(s) (multiline with `\|`) |
-| **Media** | | |
-| `sections` | No | For multi-section projects (see below). If you use this, prefer it over top-level `images`/`videos` for the main content. |
-| `images` | No | Simple project: list of image paths (e.g. `/projects/slug/01.jpg`) |
-| `videos` | No | Simple project: list of video paths or URLs |
+| Field           | Required | Description                                                                                                                         |
+| --------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `title`         | Yes      | Project name (e.g. "Stand With Crypto State Advocacy Editorial")                                                                    |
+| `description`   | No       | Short line for cards and SEO                                                                                                        |
+| `date`          | No       | When you shipped or finished (YYYY-MM-DD)                                                                                           |
+| `draft`         | No       | `true` = hidden from listings (default `false`)                                                                                     |
+| `category`      | No       | One of `graphic-design`, `motion`, `engineering` (default `graphic-design`). Used for nav dropdown and projects index grouping. |
+| `tags`          | No       | Array for filtering (e.g. `[editorial, illustration]`) — match slugs in Experience capabilities if you want tag links               |
+| **Intro (1.1)** |          |                                                                                                                                     |
+| `roles`         | No       | Array, e.g. `["Editorial Designer", "Illustration Designer"]`                                                                       |
+| `tools`         | No       | Array, e.g. `["Adobe InDesign", "Adobe Illustrator"]`                                                                               |
+| `overview`      | No       | PROJECT OVERVIEW paragraph(s) (multiline with `\|`)                                                                                 |
+| **Media**       |          |                                                                                                                                     |
+| `sections`      | No       | For multi-section projects (see below). If you use this, prefer it over top-level `images`/`videos` for the main content.           |
+| `images`        | No       | Simple project: list of image paths (e.g. `/projects/slug/01.jpg`)                                                                  |
+| `videos`        | No       | Simple project: list of video paths or URLs                                                                                         |
 
 ## Two patterns
 
@@ -60,10 +60,10 @@ tools: [Illustrator, After Effects, Lottie]
 overview: |
   For the Coinbase One takeover...
 sections:
-  - id: "2.1"
+  - id: '2.1'
     title: Initial Drafts Regular
     images: [/projects/coinbase-one/2-1-01.jpg, ...]
-  - id: "4.1"
+  - id: '4.1'
     title: Lottie Animations
     link: https://app.lottiefiles.com/share/...
     videos: [/projects/coinbase-one/lottie-final.mp4]

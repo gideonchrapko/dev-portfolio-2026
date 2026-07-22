@@ -2,7 +2,14 @@
 interface Props {
   entries: Array<
     | { label: string; href: string }
-    | { prefix: string; label?: string; href?: string; connector?: boolean; suffix?: string; level?: 'root' | 'category' | 'project' }
+    | {
+        prefix: string;
+        label?: string;
+        href?: string;
+        connector?: boolean;
+        suffix?: string;
+        level?: 'root' | 'category' | 'project';
+      }
   >;
   isTree: boolean;
   /** When true, no absolute positioning (for use inside shared floating dropdown) */
@@ -12,8 +19,15 @@ interface Props {
 const { entries, isTree, embed = false } = Astro.props;
 
 function isTreeEntry(
-  entry: Props['entries'][number]
-): entry is { prefix: string; label?: string; href?: string; connector?: boolean; suffix?: string; level?: 'root' | 'category' | 'project' } {
+  entry: Props['entries'][number],
+): entry is {
+  prefix: string;
+  label?: string;
+  href?: string;
+  connector?: boolean;
+  suffix?: string;
+  level?: 'root' | 'category' | 'project';
+} {
   return typeof entry === 'object' && 'prefix' in entry;
 }
 
@@ -26,53 +40,52 @@ const treeLineLink =
   'group/link flex min-w-0 flex-1 items-center gap-[1ch] rounded py-0.5 pr-3 font-mono text-base leading-none text-gray-200 no-underline transition-colors hover:bg-gray-800 hover:text-gray-100';
 ---
 
-<div
-  class={dropdownBase}
-  style={embed ? '' : `min-width: ${isTree ? '22rem' : '14rem'}; margin-top: -4px;`}
->
-  {isTree ? (
-    <div class="font-mono text-base leading-none">
-      {entries.map((entry) => {
-        if (!isTreeEntry(entry)) return null;
-        if (entry.connector) {
+<div class={dropdownBase} style={embed ? '' : `min-width: ${isTree ? '22rem' : '14rem'}; margin-top: -4px;`}>
+  {
+    isTree ? (
+      <div class="font-mono text-base leading-none">
+        {entries.map((entry) => {
+          if (!isTreeEntry(entry)) return null;
+          if (entry.connector) {
+            return (
+              <div class={`${treeRow} -mx-1`}>
+                <span class={treeChars}>{entry.prefix}</span>
+              </div>
+            );
+          }
+          if (entry.label != null && entry.href != null) {
+            const isCategory = entry.level === 'category';
+            return (
+              <a href={entry.href} class={`${treeRow} ${treeLineLink} -mx-1 first:mt-0`}>
+                <span class={treeChars}>{entry.prefix}</span>
+                <span class={`min-w-0 truncate ${isCategory ? 'text-gray-500' : ''}`}>{entry.label}</span>
+                <span class="ml-auto shrink-0 opacity-0 transition-opacity group-hover/link:opacity-100">→</span>
+              </a>
+            );
+          }
           return (
-            <div class={`${treeRow} -mx-1`}>
+            <div class={treeRow}>
               <span class={treeChars}>{entry.prefix}</span>
             </div>
           );
-        }
-        if (entry.label != null && entry.href != null) {
-          const isCategory = entry.level === 'category';
+        })}
+      </div>
+    ) : (
+      <div>
+        {entries.map((entry) => {
+          if (isTreeEntry(entry)) return null;
           return (
-            <a href={entry.href} class={`${treeRow} ${treeLineLink} -mx-1 first:mt-0`}>
-              <span class={treeChars}>{entry.prefix}</span>
-              <span class={`min-w-0 truncate ${isCategory ? 'text-gray-500' : ''}`}>{entry.label}</span>
-              <span class="ml-auto shrink-0 opacity-0 transition-opacity group-hover/link:opacity-100">→</span>
+            <a
+              href={entry.href}
+              class="block rounded py-2 px-2 text-base leading-none text-gray-200 no-underline transition-colors hover:bg-gray-800 hover:text-gray-100"
+            >
+              {entry.label}
             </a>
           );
-        }
-        return (
-          <div class={treeRow}>
-            <span class={treeChars}>{entry.prefix}</span>
-          </div>
-        );
-      })}
-    </div>
-  ) : (
-    <div>
-      {entries.map((entry) => {
-        if (isTreeEntry(entry)) return null;
-        return (
-          <a
-            href={entry.href}
-            class="block rounded py-2 px-2 text-base leading-none text-gray-200 no-underline transition-colors hover:bg-gray-800 hover:text-gray-100"
-          >
-            {entry.label}
-          </a>
-        );
-      })}
-    </div>
-  )}
+        })}
+      </div>
+    )
+  }
 </div>
 
 <style>

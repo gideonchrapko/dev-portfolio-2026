@@ -7,4 +7,4 @@ description: A bit about me
 
 This is the **about** content. Edit `src/content/pages/about.md` to change this.
 
-You can use Markdown: *italic*, **bold**, [links](https://example.com), and images with `![alt](path/to/image.jpg)`.
+You can use Markdown: _italic_, **bold**, [links](https://example.com), and images with `![alt](path/to/image.jpg)`.

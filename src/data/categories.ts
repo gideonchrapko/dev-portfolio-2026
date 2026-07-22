@@ -3,10 +3,11 @@
  * Use with CategoryBadge and anywhere you need category order/labels (nav, projects index).
  */
 
-export const categorySlugs = ['web-development', 'motion', 'graphic-design'] as const;
+export const categorySlugs = ['engineering', 'motion', 'graphic-design'] as const;
 export type CategorySlug = (typeof categorySlugs)[number];
 
-export type CategoryBadgeColor = 'amber' | 'emerald' | 'rose' | 'sky' | 'violet' | 'orange' | 'lime' | 'cyan' | 'fuchsia' | 'teal';
+export type CategoryBadgeColor =
+  'amber' | 'emerald' | 'rose' | 'sky' | 'violet' | 'orange' | 'lime' | 'cyan' | 'fuchsia' | 'teal';
 
 export interface CategoryConfig {
   slug: CategorySlug;
@@ -16,15 +17,15 @@ export interface CategoryConfig {
 }
 
 export const categories: CategoryConfig[] = [
-  { slug: 'web-development', label: 'web development', badgeColor: 'sky' },
+  { slug: 'engineering', label: 'engineering', badgeColor: 'sky' },
   { slug: 'motion', label: 'motion', badgeColor: 'violet' },
   { slug: 'graphic-design', label: 'design', badgeColor: 'amber' },
 ];
 
 export const categoryLabels: Record<CategorySlug, string> = Object.fromEntries(
-  categories.map((c) => [c.slug, c.label])
+  categories.map((c) => [c.slug, c.label]),
 ) as Record<CategorySlug, string>;
 
 export const categoryBySlug: Record<CategorySlug, CategoryConfig> = Object.fromEntries(
-  categories.map((c) => [c.slug, c])
+  categories.map((c) => [c.slug, c]),
 ) as Record<CategorySlug, CategoryConfig>;

@@ -37,15 +37,16 @@ const isSelected = currentValues.includes(value.toLowerCase());
 const baseClasses =
   'relative inline-flex cursor-pointer items-center pl-2 pr-1 py-0.5 text-xs font-medium border-0 transition-opacity duration-200 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1';
 const unselectedClasses =
-  variant === 'secondary'
-    ? 'bg-gray-600 text-white opacity-75'
-    : `text-gray-900 ${colorMap[color]}`;
+  variant === 'secondary' ? 'bg-gray-600 text-white opacity-75' : `text-gray-900 ${colorMap[color]}`;
 const cornerClass = isSelected ? colorMap[color] : variant === 'secondary' ? 'bg-gray-500' : colorMap[color];
 ---
 
 <button
   type="button"
-  class:list={[baseClasses, isSelected ? [colorMap[color], 'text-gray-900', 'ring-2', 'ring-gray-700', 'ring-offset-1'] : unselectedClasses]}
+  class:list={[
+    baseClasses,
+    isSelected ? [colorMap[color], 'text-gray-900', 'ring-2', 'ring-gray-700', 'ring-offset-1'] : unselectedClasses,
+  ]}
   data-project-badge
   data-param={param}
   data-value={value}
@@ -54,10 +55,7 @@ const cornerClass = isSelected ? colorMap[color] : variant === 'secondary' ? 'bg
   aria-pressed={isSelected}
   aria-label={`${isSelected ? 'Remove' : 'Add'} filter: ${label}`}
 >
-  <span
-    class={`absolute -left-1 -top-1 h-1 w-1 border-0 ${cornerClass}`}
-    style="border-radius: 0;"
-    aria-hidden="true"
-  />
+  <span class={`absolute -left-1 -top-1 h-1 w-1 border-0 ${cornerClass}`} style="border-radius: 0;" aria-hidden="true"
+  ></span>
   {label}
 </button>

@@ -1,6 +1,7 @@
 ---
 title: Gideon Chrapko
 ---
-Front-end developer with a background in design.
 
-I love designing and building high-performance web experiences.
+Designer and Engineer blending visual craft with full-stack development to build powerful brand experiences.
+
+I specialize in React, TypeScript, design systems, and headless web technologies.

@@ -10,15 +10,7 @@ export default {
         footer: '#FAFAFA',
       },
       fontFamily: {
-        sans: [
-          'ui-monospace',
-          'SFMono-Regular',
-          '"SF Mono"',
-          'Menlo',
-          'Consolas',
-          '"Liberation Mono"',
-          'monospace',
-        ],
+        sans: ['ui-monospace', 'SFMono-Regular', '"SF Mono"', 'Menlo', 'Consolas', '"Liberation Mono"', 'monospace'],
       },
     },
   },

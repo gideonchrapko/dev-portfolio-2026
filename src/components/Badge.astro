@@ -10,7 +10,8 @@ interface Props {
    */
   variant?: 'default' | 'secondary' | 'destructive' | 'outline';
   /** Bright badge color key (used when variant is "default" or omitted) */
-  color?: 'amber' | 'emerald' | 'rose' | 'sky' | 'violet' | 'orange' | 'lime' | 'cyan' | 'fuchsia' | 'teal' | 'lightGreen';
+  color?:
+    'amber' | 'emerald' | 'rose' | 'sky' | 'violet' | 'orange' | 'lime' | 'cyan' | 'fuchsia' | 'teal' | 'lightGreen';
   /** Show a green dot inside the badge (e.g. for "Current" badge) */
   dot?: boolean;
   /** When true, show a link arrow (↗) on the right; use when the badge is inside a link */
@@ -60,16 +61,15 @@ const cornerClass = isDefault ? colorMap[color] : v.corner;
   style="border-radius: 0;"
 >
   {/* Small square juts out from top-left corner */}
-  <span
-    class={`absolute -left-1 -top-1 h-1 w-1 border-0 ${cornerClass}`}
-    style="border-radius: 0;"
-    aria-hidden="true"
-  />
+  <span class={`absolute -left-1 -top-1 h-1 w-1 border-0 ${cornerClass}`} style="border-radius: 0;" aria-hidden="true"
+  ></span>
   {label}
-  {dot && (
-    <span class="ml-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500" aria-hidden="true" />
-  )}
-  {link && (
-    <span class="ml-1 shrink-0 text-[0.8em] opacity-80" aria-hidden="true">↗</span>
-  )}
+  {dot && <span class="ml-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500" aria-hidden="true" />}
+  {
+    link && (
+      <span class="ml-1 shrink-0 text-[0.8em] opacity-80" aria-hidden="true">
+        ↗
+      </span>
+    )
+  }
 </span>

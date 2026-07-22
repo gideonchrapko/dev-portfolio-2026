@@ -39,15 +39,15 @@ const rawItems = navConfig.items as NavItem[];
 
 // All non-draft projects, grouped by category → Projects pill dropdown (web development, motion, design, then api/projects)
 const allProjects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
-  (a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0)
+  (a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0),
 );
 
-const categoryOrder = ['web-development', 'motion', 'graphic-design'] as const;
-const categoryLabels: Record<(typeof categoryOrder)[number], string> = {
-  'web-development': 'web development',
-  motion: 'motion',
-  'graphic-design': 'design',
-};
+const categoryOrder = ['engineering', 'motion', 'graphic-design'] as const;
+  const categoryLabels: Record<(typeof categoryOrder)[number], string> = {
+    engineering: 'engineering',
+    motion: 'motion',
+    'graphic-design': 'design',
+  };
 
 const projectsByCategory = categoryOrder.map((cat) => ({
   label: categoryLabels[cat],
@@ -65,7 +65,13 @@ const items: NavItem[] = rawItems.map((item) => {
   const projectsRoot = tree[0];
   const otherRoots = tree.slice(1);
   const newTree: TreeNode[] = [
-    { ...projectsRoot, label: projectsRoot.label, href: projectsRoot.href, symbol: projectsRoot.symbol, children: projectsByCategory },
+    {
+      ...projectsRoot,
+      label: projectsRoot.label,
+      href: projectsRoot.href,
+      symbol: projectsRoot.symbol,
+      children: projectsByCategory,
+    },
     ...otherRoots,
   ];
   return { ...item, dropdown: { tree: newTree } };
@@ -79,13 +85,7 @@ function buildTreeLines(roots: TreeNode[]): TreeDropdownEntry[] {
   const lines: TreeDropdownEntry[] = [];
   const defaultSymbol = '○';
 
-  function addNode(
-    node: TreeNode,
-    indent: string,
-    branch: string,
-    sym: string,
-    depth: number
-  ): void {
+  function addNode(node: TreeNode, indent: string, branch: string, sym: string, depth: number): void {
     const level: TreeDropdownEntry['level'] = depth === 0 ? 'root' : depth === 1 ? 'category' : 'project';
     lines.push({
       prefix: `${indent}${branch} ${sym} `,
@@ -130,12 +130,19 @@ function getDropdownEntries(dropdown: DropdownConfig): DropdownEntry[] {
 
 <!-- Wrapper so dropdown is positioned relative to the nav (avoids fixed + transformed header issues) -->
 <div id="nav-pills-wrapper" class="relative">
-  <div id="nav-pills-row" class="flex flex-row flex-nowrap items-center justify-center" role="navigation" aria-label="Section">
-    {items.map((item, i) => {
-      const entries = item.dropdown ? getDropdownEntries(item.dropdown) : [];
-      const isTree = entries.length > 0 && isTreeEntry(entries[0]);
-      return <NavPill item={item} entries={entries} isTree={isTree} index={i} />;
-    })}
+  <div
+    id="nav-pills-row"
+    class="flex flex-row flex-nowrap items-center justify-center"
+    role="navigation"
+    aria-label="Section"
+  >
+    {
+      items.map((item, i) => {
+        const entries = item.dropdown ? getDropdownEntries(item.dropdown) : [];
+        const isTree = entries.length > 0 && isTreeEntry(entries[0]);
+        return <NavPill item={item} entries={entries} isTree={isTree} index={i} />;
+      })
+    }
   </div>
 
   <!-- Single shared dropdown: X animates between pills; Y is instant. No transition until after first open. -->
@@ -152,22 +159,21 @@ function getDropdownEntries(dropdown: DropdownConfig): DropdownEntry[] {
       class="nav-shared-dropdown-y w-full"
       style="transform: translateY(var(--nav-dropdown-top, 0px));"
     >
-    <div class="nav-shared-dropdown-content w-full rounded border border-gray-700 bg-[#0d0d0d] shadow-xl">
-    {items.map((item, i) => {
-      const entries = item.dropdown ? getDropdownEntries(item.dropdown) : [];
-      const isTree = entries.length > 0 && isTreeEntry(entries[0]);
-      if (entries.length === 0) return null;
-      return (
-        <div
-          data-nav-panel={i}
-          class="nav-dropdown-panel hidden px-5 py-4"
-        >
-          <NavPillDropdown entries={entries} isTree={isTree} embed />
-        </div>
-      );
-    })}
-  </div>
-  </div>
+      <div class="nav-shared-dropdown-content w-full rounded border border-gray-700 bg-[#0d0d0d] shadow-xl">
+        {
+          items.map((item, i) => {
+            const entries = item.dropdown ? getDropdownEntries(item.dropdown) : [];
+            const isTree = entries.length > 0 && isTreeEntry(entries[0]);
+            if (entries.length === 0) return null;
+            return (
+              <div data-nav-panel={i} class="nav-dropdown-panel hidden px-5 py-4">
+                <NavPillDropdown entries={entries} isTree={isTree} embed />
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
   </div>
 </div>
 
@@ -210,7 +216,9 @@ function getDropdownEntries(dropdown: DropdownConfig): DropdownEntry[] {
       }
       dropdown!.setAttribute('aria-hidden', 'false');
 
-      triggers.forEach((t) => t.classList.toggle('nav-trigger-active', t.getAttribute('data-nav-index') === String(index)));
+      triggers.forEach((t) =>
+        t.classList.toggle('nav-trigger-active', t.getAttribute('data-nav-index') === String(index)),
+      );
 
       // Optional: flip above if not enough space below (still in wrapper coords)
       requestAnimationFrame(() => {
@@ -328,7 +336,6 @@ function getDropdownEntries(dropdown: DropdownConfig): DropdownEntry[] {
         } catch {}
       });
     });
-
   })();
 </script>
 
@@ -340,7 +347,9 @@ function getDropdownEntries(dropdown: DropdownConfig): DropdownEntry[] {
     pointer-events: auto !important;
   }
   .nav-shared-dropdown-visible {
-    transition: transform 0.35s ease-out, opacity 0.3s ease-out !important;
+    transition:
+      transform 0.35s ease-out,
+      opacity 0.3s ease-out !important;
   }
   .nav-shared-dropdown-y.nav-dropdown-above {
     transform: translateY(var(--nav-dropdown-top, 0px)) translateY(-100%) !important;
@@ -348,9 +357,9 @@ function getDropdownEntries(dropdown: DropdownConfig): DropdownEntry[] {
   .nav-shared-dropdown .nav-dropdown-panel {
     display: none;
   }
-  .nav-shared-dropdown[data-active-index="0"] .nav-dropdown-panel[data-nav-panel="0"],
-  .nav-shared-dropdown[data-active-index="1"] .nav-dropdown-panel[data-nav-panel="1"],
-  .nav-shared-dropdown[data-active-index="2"] .nav-dropdown-panel[data-nav-panel="2"] {
+  .nav-shared-dropdown[data-active-index='0'] .nav-dropdown-panel[data-nav-panel='0'],
+  .nav-shared-dropdown[data-active-index='1'] .nav-dropdown-panel[data-nav-panel='1'],
+  .nav-shared-dropdown[data-active-index='2'] .nav-dropdown-panel[data-nav-panel='2'] {
     display: block;
   }
 </style>

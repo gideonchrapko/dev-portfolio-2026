@@ -1,10 +1,10 @@
 ---
 title: Day Night Agency Website
-description: A dynamic marketing agency website built with Next.js and a headless Sanity CMS, featuring immersive Three.js 3D elements and a custom content dashboard for seamless project management. 
+description: A dynamic marketing agency website built with Next.js and a headless Sanity CMS, featuring immersive Three.js 3D elements and a custom content dashboard for seamless project management.
 date: 2024-04-23
-category: web-development
+category: engineering
 draft: false
-tags: [nextjs, figma, react]
+tags: [nextjs, figma, react, sanity.io]
 url: 'https://www.daynightagency.com/'
 roles:
   - UX Design
@@ -14,8 +14,8 @@ tools:
   - figma
   - react
   - sanity.io
-overview:
-  The Day Night Agency Management website is a dynamic platform showcasing projects from its marketing and influencer divisions. Built with Next.js and powered by a headless CMS using Sanity, the site empowers employees with a customizable dashboard to effortlessly upload and manage content. Featuring immersive 3D assets created with Three.js, it delivers a visually engaging experience that highlights the agency’s creative edge. This innovative website combines flexibility, functionality, and cutting-edge design to represent Day Night Agency’s projects and capabilities with style and precision.
+image: /projects/day-night-agency/02.webp
+overview: The Day Night Agency Management website is a dynamic platform showcasing projects from its marketing and influencer divisions. Built with Next.js and powered by a headless CMS using Sanity, the site empowers employees with a customizable dashboard to effortlessly upload and manage content. Featuring immersive 3D assets created with Three.js, it delivers a visually engaging experience that highlights the agency’s creative edge. This innovative website combines flexibility, functionality, and cutting-edge design to represent Day Night Agency’s projects and capabilities with style and precision.
 images:
   - /projects/day-night-agency/02.webp
   - /projects/day-night-agency/04.webp

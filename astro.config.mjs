@@ -4,6 +4,6 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://gideonchrapko.com', // used for absolute OG/twitter image and canonical URLs
+  site: 'https://dev.gideonchrapko.com', // used for absolute OG/twitter image and canonical URLs
   integrations: [tailwind()],
 });

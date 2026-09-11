@@ -1,0 +1,174 @@
+{
+  "redirects": [
+    {
+      "source": "/supabase",
+      "destination": "https://gideonchrapko.com/?utm_source=supabase-application&utm_medium=referral&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/critical-mass",
+      "destination": "https://gideonchrapko.com/?utm_source=critical-mass&utm_medium=referral&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/city-of-calgary",
+      "destination": "https://gideonchrapko.com/?utm_source=city-of-calgary&utm_medium=referral&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/autodesk",
+      "destination": "https://gideonchrapko.com/?utm_source=autodesk&utm_medium=referral&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/canadian-red-cross",
+      "destination": "https://gideonchrapko.com/?utm_source=canadian-red-cross&utm_medium=linkedin&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/exacare",
+      "destination": "https://gideonchrapko.com/?utm_source=exacare&utm_medium=linkedin&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/icuc",
+      "destination": "https://gideonchrapko.com/?utm_source=icuc&utm_medium=dentsu&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/pixel1",
+      "destination": "https://gideonchrapko.com/?utm_source=pixel1&utm_medium=notion_form&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/0g",
+      "destination": "https://gideonchrapko.com/?utm_source=0g&utm_medium=ashby&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/devoted-games",
+      "destination": "https://gideonchrapko.com/?utm_source=devoted-games&utm_medium=ashby&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/cossette",
+      "destination": "https://gideonchrapko.com/?utm_source=cossette&utm_medium=website&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/liftoff",
+      "destination": "https://gideonchrapko.com/?utm_source=liftoff&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/thinking-box",
+      "destination": "https://gideonchrapko.com/?utm_source=thinking-box&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/lg2",
+      "destination": "https://gideonchrapko.com/?utm_source=lg2&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/orion-digital",
+      "destination": "https://gideonchrapko.com/?utm_source=orion-digital&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/cli0",
+      "destination": "https://gideonchrapko.com/?utm_source=clio&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/maax",
+      "destination": "https://gideonchrapko.com/?utm_source=maax-bath&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/intelligent-investing",
+      "destination": "https://gideonchrapko.com/?utm_source=intelligent-investing&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/spare",
+      "destination": "https://gideonchrapko.com/?utm_source=spare&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/wealthsimple",
+      "destination": "https://gideonchrapko.com/?utm_source=wealthsimple&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/unity",
+      "destination": "https://gideonchrapko.com/?utm_source=unity&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/tiny-health",
+      "destination": "https://gideonchrapko.com/?utm_source=tiny-health&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/algaecall",
+      "destination": "https://gideonchrapko.com/?utm_source=algaecal&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/walmart",
+      "destination": "https://gideonchrapko.com/?utm_source=walmart&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/algaecal",
+      "destination": "https://gideonchrapko.com/?utm_source=algaecal&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/dept",
+      "destination": "https://gideonchrapko.com/?utm_source=dept&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/whc",
+      "destination": "https://gideonchrapko.com/?utm_source=web-hosting-canada&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/stack-adapt",
+      "destination": "https://gideonchrapko.com/?utm_source=stackadapt&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/akcelo",
+      "destination": "https://gideonchrapko.com/?utm_source=akcelo&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/ackelo",
+      "destination": "https://gideonchrapko.com/?utm_source=akcelo&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/policyme",
+      "destination": "https://gideonchrapko.com/?utm_source=policyme&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/phoenix",
+      "destination": "https://gideonchrapko.com/?utm_source=phoenix&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/lug",
+      "destination": "https://gideonchrapko.com/?utm_source=lug&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    },
+    {
+      "source": "/safetyco",
+      "destination": "https://gideonchrapko.com/?utm_source=safetyco&utm_medium=application&utm_campaign=portfolio",
+      "permanent": false
+    }
+  ]
+}
